@@ -28,22 +28,27 @@ class IniSectionStorage(Mapping):
         return len(self._storage)
 
 
-class IniStorage(MutableMapping):
+class IniStorage(Mapping):
 
     def __init__(self):
         self._storage = {}
 
-    def __getitem__(self):
-        pass
+    def __getitem__(self, section):
+        return self._storage[section]
 
-    def __setitem__(self):
-        pass
+    def addSection(self, sectionName):
+        if sectionName not in self._storage:
+            self._storage[sectionName] = IniSectionStorage()
 
-    def __delitem__(self):
-        pass
+    def __delitem__(self, a):
+        del self._storage[a]
+
+    def remove(self, a):
+        self.__delitem__(a)
 
     def __iter__(self):
-        pass
+        return iter(self._storage)
 
     def __len__(self):
-        pass
+        return len(self._storage)
+
