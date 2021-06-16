@@ -1,4 +1,4 @@
-from IniStorage import *
+from iniParser.IniStorage import *
 
 
 class IniParser():
