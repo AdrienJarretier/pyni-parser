@@ -16,6 +16,9 @@ class IniSectionStorage(Mapping):
         else:
             self[property].append(value)
 
+    def replaceValues(self, property, values):
+        self._storage[property] = values
+
     def remove(self, a, b):
         if b in self._storage[a]:
             self._storage[a].remove(b)
@@ -81,9 +84,11 @@ class IniStorage(Mapping):
     def mergeWith(self, otherIniStorage):
         tmpIniStorage = otherIniStorage.copy()
 
-        # for section,properties in self:
-        #     if section not in tmpIniStorage:
-        #         tmpIniStorage.addSection(section)
-        #     for property in properties:
+        for section in self:
+            if section not in tmpIniStorage:
+                tmpIniStorage.addSection(section)
+            for property in self[section]:
+                tmpIniStorage[section].replaceValues(
+                    property, self[section][property])
 
-        self = tmpIniStorage
+        self._storage = tmpIniStorage._storage

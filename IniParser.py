@@ -51,6 +51,7 @@ class IniParser():
 
         targetFileParser = IniParser()
         targetFileParser.parseFile(filename)
+
         self._storage.mergeWith(targetFileParser._storage)
 
 
@@ -60,11 +61,10 @@ def test0_readAndOutput():
     parser.writeFile('test/0-readAndOutput/output.ini')
 
 
-test0_readAndOutput()
+def test1_merge():
+    parser = IniParser()
+    parser.parseFile('test/1-merge/testi.ini')
+    parser.mergeWith('test/1-merge/testo.ini')
+    parser.writeFile('test/1-merge/testo.ini')
 
-# parser = IniParser()
-# parser.parseFile('test/1-merge/testi.ini')
 
-# parser.mergeWith('test/1-merge/testo.ini')
-
-# parser.writeFile('test/1-merge/testo.ini')

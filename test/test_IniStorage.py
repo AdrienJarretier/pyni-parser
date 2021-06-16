@@ -84,6 +84,18 @@ class TestIniSectionStorage(unittest.TestCase):
         self.assertEqual(self.iniSectionStorage['b'], [100, 2, '100', True])
         self.assertEqual(self.iniSectionStorage['a'], [5])
 
+    def testreplaceValues(self):
+        self.iniSectionStorage.addValue('b', 100)
+        self.iniSectionStorage.addValue('b', 2)
+        self.iniSectionStorage.addValue('b', '100')
+        self.iniSectionStorage.addValue('b', True)
+        self.iniSectionStorage.addValue('a', 5)
+        self.iniSectionStorage.replaceValues('b', ['9', 9])
+        self.iniSectionStorage.replaceValues('newProp', ['nv1', 'nv2'])
+        self.assertEqual(self.iniSectionStorage['b'], ['9', 9])
+        self.assertEqual(self.iniSectionStorage['a'], [5])
+        self.assertEqual(self.iniSectionStorage['newProp'], ['nv1', 'nv2'])
+
     def test__setitem__(self):
         self.iniSectionStorage.addValue('a', 5)
         self.assertEqual(self.iniSectionStorage, {'a': [5]})
