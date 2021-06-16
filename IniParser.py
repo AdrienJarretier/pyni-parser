@@ -1,7 +1,9 @@
+
+
 class IniParser():
 
     def __init__(self):
-        pass
+        self._storage = IniStorage()
 
     def _parseLine(self, line):
         print(line)
