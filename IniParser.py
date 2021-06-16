@@ -37,8 +37,28 @@ class IniParser():
         with open(filename, 'w') as f:
             f.write(self.encode())
 
+    # def _mergeIntoString(self, string):
+
+    # def _mergeIntoFile(self, filename):
+
+    #     targetFileParser = IniParser()
+    #     targetFileParser.parseFile(filename)
+    #     self._storage.mergeInto
+
+    # def mergeInto
+
+    def mergeWith(self, filename):
+
+        targetFileParser = IniParser()
+        targetFileParser.parseFile(filename)
+        self._storage.mergeWith(targetFileParser._storage)
+
+
+
 
 parser = IniParser()
-parser.parseFile('test/0-readAndOutput/input.ini')
+parser.parseFile('test/1-merge/testi.ini')
 
-parser.writeFile('test/0-readAndOutput/output.ini')
+parser.mergeWith('test/1-merge/testo.ini')
+
+parser.writeFile('test/1-merge/testo.ini')

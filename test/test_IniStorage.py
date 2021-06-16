@@ -33,7 +33,6 @@ class TestIniStorage(unittest.TestCase):
         del self.iniStorage['sec1']
         self.assertEqual(self.iniStorage, {})
 
-
     def testremove(self):
         self.iniStorage.addSection('sec1')
         self.iniStorage['sec1']['a'] = 2
@@ -46,6 +45,27 @@ class TestIniStorage(unittest.TestCase):
         self.assertEqual(len(self.iniStorage), 1)
         self.iniStorage.addSection('sec2')
         self.assertEqual(len(self.iniStorage), 2)
+
+    def testcopy(self):
+        self.iniStorage.addSection('sec1')
+        self.iniStorage.addSection('sec2')
+        self.iniStorage['sec1']['a'] = 2
+        self.iniStorage['sec1']['b'] = 2
+        self.iniStorage['sec1']['a'] = 25
+
+        copiedIniStorage = self.iniStorage.copy()
+
+        self.assertIsNot(self.iniStorage, copiedIniStorage)
+        self.assertIsNot(self.iniStorage._storage, copiedIniStorage._storage)
+        for section in self.iniStorage:
+            self.assertIsNot(self.iniStorage[section], copiedIniStorage[section])
+            for property in self.iniStorage[section]:
+                self.assertIsNot(self.iniStorage[section][property], copiedIniStorage[section][property])
+
+        self.assertEqual(copiedIniStorage.keys(), {
+                         'sec1': '', 'sec2': ''}.keys())
+        self.assertEqual(copiedIniStorage, {
+                         'sec1': {'a': [2, 25], 'b': [2]}, 'sec2': {}})
 
 
 class TestIniSectionStorage(unittest.TestCase):

@@ -1,5 +1,5 @@
 from collections.abc import Mapping, MutableMapping
-
+import copy
 
 class IniSectionStorage(Mapping):
 
@@ -66,4 +66,22 @@ class IniStorage(Mapping):
             iniStr += self._storage[section].encode()
             iniStr += '\n'
 
-        return iniStr
+    def copy(self):
+        tmp = IniStorage()
+        tmp._storage = copy.deepcopy(self._storage)
+
+        return tmp
+
+
+    def mergeWith(self, otherIniStorage):
+        tmpIniStorage = otherIniStorage.copy()
+
+        # for section,properties in self:
+        #     if section not in tmpIniStorage:
+        #         tmpIniStorage.addSection(section)
+        #     for property in properties:
+                
+
+        self = tmpIniStorage
+        
+
