@@ -55,12 +55,6 @@ class IniParser():
         self._storage.mergeWith(targetFileParser._storage)
 
 
-def test0_readAndOutput():
-    parser = IniParser()
-    parser.parseFile('test/0-readAndOutput/input.ini')
-    parser.writeFile('test/0-readAndOutput/output.ini')
-
-
 def test1_merge():
     parser = IniParser()
     parser.parseFile('test/1-merge/testi.ini')
