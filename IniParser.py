@@ -21,7 +21,7 @@ class IniParser():
                 self._storage.addSection(parsedLine[0])
                 currentSection = self._storage[parsedLine[0]]
             else:
-                currentSection[parsedLine[0]] = parsedLine[1]
+                currentSection.addValue(parsedLine[0], parsedLine[1])
 
     def parseFile(self, filename):
 
@@ -54,11 +54,17 @@ class IniParser():
         self._storage.mergeWith(targetFileParser._storage)
 
 
+def test0_readAndOutput():
+    parser = IniParser()
+    parser.parseFile('test/0-readAndOutput/input.ini')
+    parser.writeFile('test/0-readAndOutput/output.ini')
 
 
-parser = IniParser()
-parser.parseFile('test/1-merge/testi.ini')
+test0_readAndOutput()
 
-parser.mergeWith('test/1-merge/testo.ini')
+# parser = IniParser()
+# parser.parseFile('test/1-merge/testi.ini')
 
-parser.writeFile('test/1-merge/testo.ini')
+# parser.mergeWith('test/1-merge/testo.ini')
+
+# parser.writeFile('test/1-merge/testo.ini')

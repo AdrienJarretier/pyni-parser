@@ -1,6 +1,7 @@
 from collections.abc import Mapping, MutableMapping
 import copy
 
+
 class IniSectionStorage(Mapping):
 
     def __init__(self):
@@ -9,11 +10,11 @@ class IniSectionStorage(Mapping):
     def __getitem__(self, property):
         return self._storage[property]
 
-    def __setitem__(self, a, b):
-        if a not in self._storage:
-            self._storage[a] = [b]
+    def addValue(self, property, value):
+        if property not in self:
+            self._storage[property] = [value]
         else:
-            self._storage[a].append(b)
+            self[property].append(value)
 
     def remove(self, a, b):
         if b in self._storage[a]:
@@ -29,9 +30,12 @@ class IniSectionStorage(Mapping):
 
     def encode(self):
         sectionStr = ''
+
         for property in self._storage:
             for val in self._storage[property]:
-                sectionStr += property + '=' + val + '\n'
+
+                sectionStr += property + '=' + str(val) + '\n'
+
         return sectionStr
 
 
@@ -66,12 +70,13 @@ class IniStorage(Mapping):
             iniStr += self._storage[section].encode()
             iniStr += '\n'
 
+        return iniStr
+
     def copy(self):
         tmp = IniStorage()
         tmp._storage = copy.deepcopy(self._storage)
 
         return tmp
-
 
     def mergeWith(self, otherIniStorage):
         tmpIniStorage = otherIniStorage.copy()
@@ -80,8 +85,5 @@ class IniStorage(Mapping):
         #     if section not in tmpIniStorage:
         #         tmpIniStorage.addSection(section)
         #     for property in properties:
-                
 
         self = tmpIniStorage
-        
-
