@@ -1,4 +1,4 @@
-
+from IniStorage import *
 
 class IniParser():
 
@@ -27,4 +27,4 @@ class IniParser():
 
 parser = IniParser()
 
-parser.parseFile('tests/0-readAndOutput/input.ini')
+parser.parseFile('test/0-readAndOutput/input.ini')

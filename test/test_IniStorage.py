@@ -1,3 +1,4 @@
+
 import unittest
 
 from IniStorage import *
@@ -34,6 +35,3 @@ class TestIniSectionStorage(unittest.TestCase):
         self.iniSectionStorage['b'] = 2
         self.iniSectionStorage['a'] = 5
         self.assertEqual(len(self.iniSectionStorage), 2)
-
-
-unittest.main(verbosity=2)
