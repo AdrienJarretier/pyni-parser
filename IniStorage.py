@@ -27,6 +27,13 @@ class IniSectionStorage(Mapping):
     def __len__(self):
         return len(self._storage)
 
+    def encode(self):
+        sectionStr = ''
+        for property in self._storage:
+            for val in self._storage[property]:
+                sectionStr += property + '=' + val + '\n'
+        return sectionStr
+
 
 class IniStorage(Mapping):
 
@@ -52,3 +59,11 @@ class IniStorage(Mapping):
     def __len__(self):
         return len(self._storage)
 
+    def encode(self):
+        iniStr = ''
+        for section in self._storage:
+            iniStr += '['+section+']\n'
+            iniStr += self._storage[section].encode()
+            iniStr += '\n'
+
+        return iniStr
