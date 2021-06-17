@@ -17,9 +17,7 @@ class IniParser():
         currentSection = None
         for l in s.split('\n'):
             if l.strip() != '':
-                print('line :', l)
                 parsedLine = self._parseLine(l)
-                print('parsedLine :', parsedLine)
                 if(len(parsedLine) == 1):
                     self._storage.addSection(parsedLine[0])
                     currentSection = self._storage[parsedLine[0]]
