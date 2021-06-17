@@ -10,18 +10,21 @@ class IniParser():
         if line.startswith('['):
             return [line[1:-1]]
         else:
-            return line.split('=')
+            return line.split('=', 1)
 
     # parse entire string from an ini file
     def parseString(self, s):
         currentSection = None
-        for l in s.split():
-            parsedLine = self._parseLine(l)
-            if(len(parsedLine) == 1):
-                self._storage.addSection(parsedLine[0])
-                currentSection = self._storage[parsedLine[0]]
-            else:
-                currentSection.addValue(parsedLine[0], parsedLine[1])
+        for l in s.split('\n'):
+            if l.strip() != '':
+                print('line :', l)
+                parsedLine = self._parseLine(l)
+                print('parsedLine :', parsedLine)
+                if(len(parsedLine) == 1):
+                    self._storage.addSection(parsedLine[0])
+                    currentSection = self._storage[parsedLine[0]]
+                else:
+                    currentSection.addValue(parsedLine[0], parsedLine[1])
 
     def parseFile(self, filename):
 
@@ -60,5 +63,4 @@ def test1_merge():
     parser.parseFile('test/1-merge/testi.ini')
     parser.mergeWith('test/1-merge/testo.ini')
     parser.writeFile('test/1-merge/testo.ini')
-
 
